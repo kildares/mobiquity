@@ -4,6 +4,9 @@ import com.mobiquityinc.entities.BackpackItem;
 
 import java.util.Comparator;
 
+/**
+ * Compares BackpackItems. Used to sort items in a list to run the main algorithm
+ */
 public class BackPackItemComparator implements Comparator<BackpackItem> {
 
     @Override

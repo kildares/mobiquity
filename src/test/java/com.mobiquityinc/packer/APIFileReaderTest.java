@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class APIFileReaderTest {
 
-    private static final String TEST_FILE_LINE_1 = "25 : (1, 2.5,€50) (2, 10, €50) (3, 2.5, €50) (4, 2.5, €50) (5, 2.5, €50) (6, 2.5, €50) (7, 2.5, €50) (8, 2.5, €50) (9, 2.5, €50)";
+    private static final String TEST_FILE_LINE_1 = "81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3) (4,72.30,€76) (5,30.18,€9) (6,46.34,€48)";
 
     @Test
     public void testGetValidateFileName() {

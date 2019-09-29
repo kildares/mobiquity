@@ -18,19 +18,19 @@ public class LineConverterTest {
 
         Assertions.assertEquals(convertLineToEntityPair.keySet().size(), 1);
         convertLineToEntityPair.forEach((weight, backPackList) -> {
-            Assertions.assertEquals(weight, 25);
+            Assertions.assertEquals(weight, 2500);
 
             Assertions.assertEquals(1, backPackList.get(0).getIndex());
-            Assertions.assertEquals(2.5, backPackList.get(0).getWeight());
-            Assertions.assertEquals(50, backPackList.get(0).getCost());
+            Assertions.assertEquals(250, backPackList.get(0).getWeight());
+            Assertions.assertEquals(5000, backPackList.get(0).getCost());
 
             Assertions.assertEquals(2, backPackList.get(1).getIndex());
-            Assertions.assertEquals(10, backPackList.get(1).getWeight());
-            Assertions.assertEquals(50, backPackList.get(1).getCost());
+            Assertions.assertEquals(1000, backPackList.get(1).getWeight());
+            Assertions.assertEquals(5000, backPackList.get(1).getCost());
 
             Assertions.assertEquals(3, backPackList.get(2).getIndex());
-            Assertions.assertEquals(2.5, backPackList.get(2).getWeight());
-            Assertions.assertEquals(50, backPackList.get(2).getCost());
+            Assertions.assertEquals(250, backPackList.get(2).getWeight());
+            Assertions.assertEquals(5000, backPackList.get(2).getCost());
         });
 
     }

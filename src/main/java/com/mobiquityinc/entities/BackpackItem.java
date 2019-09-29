@@ -1,13 +1,16 @@
 package com.mobiquityinc.entities;
 
+/**
+ * This entity represents each backpack item, containing the index, weight and cost read from the file
+ */
 public class BackpackItem {
 
     Integer index;
-    Double weight;
-    Double cost;
+    Integer weight;
+    Integer cost;
 
 
-    public BackpackItem(Integer index, Double weight, Double cost) {
+    public BackpackItem(Integer index, Integer weight, Integer cost) {
         this.index = index;
         this.weight = weight;
         this.cost = cost;
@@ -21,19 +24,19 @@ public class BackpackItem {
         this.index = index;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public Double getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 

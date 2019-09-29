@@ -5,9 +5,17 @@ import com.mobiquityinc.exception.APIException;
 import java.io.*;
 import java.util.Objects;
 
+/**
+ * This class is responsible for handling operations within the files to open, read and close the handler.
+ */
 public class APIFileReader {
 
 
+    /**
+     * Closes the BufferedReader. Will log a Warning, as this should be done in the end of the operation
+     *
+     * @param bufferedReader
+     */
     public static void closeBufferedReader(BufferedReader bufferedReader) {
         try {
             bufferedReader.close();
@@ -17,6 +25,13 @@ public class APIFileReader {
         }
     }
 
+    /**
+     * Obtains the BufferedReader to read files
+     *
+     * @param file
+     * @return
+     * @throws APIException when it is unable to read the chosen file under any circumstances
+     */
     public static BufferedReader getBufferedReader(File file) throws APIException {
         try {
             System.out.println(file.getAbsolutePath());
@@ -26,6 +41,13 @@ public class APIFileReader {
         }
     }
 
+    /**
+     * Validates the file received as parameter. Checks if it is null and if it is an absolute path
+     *
+     * @param filePath
+     * @return
+     * @throws APIException
+     */
     public static File getValidatedFile(String filePath) throws APIException {
 
         if (Objects.isNull(filePath)) {
@@ -41,6 +63,13 @@ public class APIFileReader {
         return file;
     }
 
+    /**
+     * Reads the next line in the file.
+     *
+     * @param bufferedReader
+     * @return
+     * @throws APIException
+     */
     public static String readLine(BufferedReader bufferedReader) throws APIException {
         try {
             return bufferedReader.readLine();
@@ -48,6 +77,5 @@ public class APIFileReader {
             throw new APIException("Error while reading file");
         }
     }
-
 
 }
