@@ -41,25 +41,4 @@ public class Packer {
         return lineCont + "\n-\n" + output;
     }
 
-
-    private static String processLine(String line) {
-
-        String[] data = line.trim().split(":");
-
-        if (data.length > 2 || !data[0].matches("[0-9]*")) {
-            return "";
-        }
-
-        int weight = Integer.valueOf(data[0]);
-
-        if (weight <= 0 || weight > 100) {
-            return "";
-        }
-
-        //      StringUtils.substringBetween(data[0], )
-        //    data[1].
-
-        return null;
-    }
-
 }
