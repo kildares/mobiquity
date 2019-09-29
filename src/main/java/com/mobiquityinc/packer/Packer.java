@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import static com.mobiquityinc.packer.APIFileReader.*;
 import static com.mobiquityinc.packer.LineConverter.convertLineToEntityPair;
+import static com.mobiquityinc.packer.PackageCalculator.calculate;
 
 public class Packer {
 
@@ -30,7 +31,7 @@ public class Packer {
 
             Map<Integer, List<BackpackItem>> entityPair = convertLineToEntityPair(line);
 
-            //output = calculateSet(entityPair);
+            output = calculate(entityPair);
 
             line = readLine(bufferedReader);
             lineCont++;

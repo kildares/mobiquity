@@ -36,4 +36,5 @@ public class BackpackItem {
     public void setCost(Double cost) {
         this.cost = cost;
     }
+
 }
