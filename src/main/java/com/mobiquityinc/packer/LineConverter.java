@@ -67,11 +67,19 @@ public class LineConverter {
 
         String[] raw = rawItem.split(",");
 
-        if (Objects.isNull(raw) || raw.length != 3) {
+        if (Objects.isNull(raw) || raw.length != 3 || !Objects.equals(raw[2].charAt(0), '€')) {
             return Optional.empty();
         }
 
-        return Optional.empty();
+        try {
+            BackpackItem backpackItem = new BackpackItem(Integer.valueOf(raw[0]), Double.valueOf(raw[1]), Double.valueOf(raw[2].substring(1)));
+
+            return Optional.of(backpackItem);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
 }

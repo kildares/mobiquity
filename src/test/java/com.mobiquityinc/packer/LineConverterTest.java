@@ -70,15 +70,23 @@ public class LineConverterTest {
         final Map<Integer, List<BackpackItem>> converted = convertLineToEntityPair("10 :");
         Assertions.assertTrue(converted.isEmpty());
 
-
-        final Map<Integer, List<BackpackItem>> converted4 = convertLineToEntityPair("10 : (213,523,124,46)");
-        Assertions.assertTrue(converted4.isEmpty());
-
         final Map<Integer, List<BackpackItem>> converted2 = convertLineToEntityPair("10 : ()");
         Assertions.assertTrue(converted2.isEmpty());
 
         final Map<Integer, List<BackpackItem>> converted3 = convertLineToEntityPair("10 : a");
         Assertions.assertTrue(converted3.isEmpty());
+
+        final Map<Integer, List<BackpackItem>> converted4 = convertLineToEntityPair("10 : (213,523,124,46)");
+        Assertions.assertTrue(converted4.isEmpty());
+
+        final Map<Integer, List<BackpackItem>> converted5 = convertLineToEntityPair("10 : (ad, 14, €43)");
+        Assertions.assertTrue(converted5.isEmpty());
+
+        final Map<Integer, List<BackpackItem>> converted6 = convertLineToEntityPair("10 : (1, 12dsf, €43)");
+        Assertions.assertTrue(converted6.isEmpty());
+
+        final Map<Integer, List<BackpackItem>> converted7 = convertLineToEntityPair("10 : (1, 12.22, rt2)");
+        Assertions.assertTrue(converted7.isEmpty());
 
 
     }
