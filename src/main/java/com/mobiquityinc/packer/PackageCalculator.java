@@ -42,9 +42,8 @@ public class PackageCalculator {
         resultMatrix = calculateResultMatrix(resultMatrix, columns, lines, items);
 
         //This element contains the best combination possible
-        System.out.println("last Index Sum: " + resultMatrix[lines - 1][columns - 1]);
-
-
+        //System.out.println("last Index Sum: " + resultMatrix[lines - 1][columns - 1]);
+        
         List<String> chosenItems = calculateChoices(resultMatrix, columns, lines, items);
 
         chosenItems.sort(new IndexComparator());
