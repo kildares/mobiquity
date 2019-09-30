@@ -10,6 +10,21 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 
+/**
+ * This class contains the main logic to obtain the best subset of items to put in the backpack.
+ * It makes use of a Dynamic Programming Solution, by generating a Matrix, whereas
+ * the rows represent each item weight, ordered by increasing order and each column represent a weight unity,
+ * from 0..n, where n == total backpack weight. The content of each element contains the optimal cost for the
+ * [i-nth][j-nth] position.
+ * <p>
+ * The optimal cost will be localized in the last index of the last column and the last row of the matrix.
+ * <p>
+ * Later, it will obtain the chosen elements by rolling back from the last item and comparing with the
+ * adjacent contents, above and on the left side. For each M[i-th][nth] element, if the element above has the same
+ * cost, then the current element will not be chosen and the algorithm restarts from that position. If it the cost is minor,
+ * then the element will be chosen and its index will be put on a List to return. The next element will be calculated
+ * by subtracting current weight available - the current item weight.
+ */
 public class PackageCalculator {
 
     /**
@@ -43,7 +58,7 @@ public class PackageCalculator {
 
         //This element contains the best combination possible
         //System.out.println("last Index Sum: " + resultMatrix[lines - 1][columns - 1]);
-        
+
         List<String> chosenItems = calculateChoices(resultMatrix, columns, lines, items);
 
         chosenItems.sort(new IndexComparator());

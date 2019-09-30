@@ -29,14 +29,15 @@ public class Packer {
 
         StringBuilder builder = new StringBuilder();
 
+        //Reads each line of the file provided and adds to a stringBuilder which will be returned
         while (!Objects.isNull(line)) {
 
+            //Converts the line read to a map which will be processed
             Map<Integer, List<BackpackItem>> entityPair = convertLineToEntityPair(line);
 
             if (!entityPair.isEmpty()) {
-
+                //Calculates the optimal solution
                 List<String> result = calculate(entityPair);
-
 
                 builder.append(createOutputLine(result));
             }
