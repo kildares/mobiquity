@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 import static com.mobiquityinc.packer.APIFileReader.*;
 import static com.mobiquityinc.packer.LineConverter.convertLineToEntityPair;
@@ -25,22 +24,21 @@ public class Packer {
 
         BufferedReader bufferedReader = getBufferedReader(file);
 
-        StringBuilder output = new StringBuilder();
         String line = readLine(bufferedReader);
         int lineCont = 0;
+
+        StringBuilder builder = new StringBuilder();
+
         while (!Objects.isNull(line)) {
 
             Map<Integer, List<BackpackItem>> entityPair = convertLineToEntityPair(line);
 
-            Optional<String> result = Optional.empty();
             if (!entityPair.isEmpty()) {
 
-                result = Optional.of(calculate(entityPair));
-                output.append(result.get());
-            }
+                List<String> result = calculate(entityPair);
 
-            if (result.isPresent()) {
-                output.append("\n");
+
+                builder.append(createOutputLine(result));
             }
 
             line = readLine(bufferedReader);
@@ -49,7 +47,25 @@ public class Packer {
 
         closeBufferedReader(bufferedReader);
 
-        return lineCont + "\n-\n" + output.toString();
+        return lineCont + "\n-\n" + builder.toString();
+    }
+
+    private static String createOutputLine(List<String> result) {
+
+        if (Objects.isNull(result) || result.isEmpty()) {
+            return "\n";
+        }
+
+        String output = "";
+        for (int i = 0; i < result.size(); i++) {
+            if (i + 1 == result.size()) {
+                output += result.get(i);
+            } else {
+                output += result.get(i) + ", ";
+            }
+
+        }
+        return output + "\n";
     }
 
 }

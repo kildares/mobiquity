@@ -56,8 +56,7 @@ public class PackerTest {
             fail();
         }
 
-        Assertions.assertEquals("1\n-\n1, 2, 6, 9", output);
-
+        Assertions.assertEquals("4\n-\n4\n\n2, 7\n8, 9\n", output);
 
     }
 

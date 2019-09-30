@@ -1,7 +1,6 @@
 package com.mobiquityinc.packer;
 
 import com.mobiquityinc.entities.BackpackItem;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +18,7 @@ public class PackageCalculator {
      * @param dataToCalc
      * @return
      */
-    public static String calculate(Map<Integer, List<BackpackItem>> dataToCalc) {
+    public static List<String> calculate(Map<Integer, List<BackpackItem>> dataToCalc) {
 
         Integer weight = dataToCalc.keySet().iterator().next();
         List<BackpackItem> items = dataToCalc.get(weight);
@@ -31,21 +30,25 @@ public class PackageCalculator {
 
         Integer columns = weight + 1;
 
+
+        if (lines == 1 && items.get(0).getWeight() <= columns) {
+            return asList(String.valueOf(items.get(0).getIndex()));
+        }
+
         //Starts a matrix to calculate results
         Integer[][] resultMatrix = getInitializedMatrix(columns, lines);
 
         resultMatrix = calculateResultMatrix(resultMatrix, columns, lines, items);
 
-        System.out.println("last: " + resultMatrix[lines - 1][columns - 1]);
-        //printMatrix(items, resultMatrix, lines, weight);
+        //This element contains the best combination possible
+        System.out.println("last Index Sum: " + resultMatrix[lines - 1][columns - 1]);
 
-        List<String> options = calculateChoices(resultMatrix, columns, lines, items);
 
-        StringBuilder builder = new StringBuilder();
+        List<String> chosenItems = calculateChoices(resultMatrix, columns, lines, items);
 
-        options.forEach(builder::append);
+        chosenItems.sort(new IndexComparator());
 
-        return builder.toString();
+        return chosenItems;
 
     }
 
@@ -71,37 +74,37 @@ public class PackageCalculator {
             }
         }
 
-        List<String> options = new ArrayList<>();
+        int upperLine = lines - 2;
         int line = lines - 1;
         int column = columns - 1;
+        List<String> chosenItems = new ArrayList<>();
 
-        int upperLine = line - 1;
+        while (upperLine >= 0 && column >= 0) {
 
-        Integer upper = resultMatrix[upperLine][column];
 
-        while (column > 0 && upperLine > 0) {
+            int cost = resultMatrix[line][column];
+            int upperCost = resultMatrix[upperLine][column];
 
-            Integer currentCost = resultMatrix[line][column];
-
-            if (currentCost.doubleValue() != upper) {
-                options.add(String.valueOf(items.get(line).getIndex()));
-                //System.out.println("Option: " + items.get(line).getIndex());
-                System.out.println("current1: " + currentCost);
-                System.out.println("current2: " + upper);
-                System.out.println("");
+            if (upperCost == cost) {
                 line--;
                 upperLine--;
-
-                column = column - items.get(line - 1).getWeight();
-
             } else {
+                String itemIndex = String.valueOf(items.get(line).getIndex());
+                Integer itemWeight = items.get(line).getWeight();
+                chosenItems.add(itemIndex);
+
+                column = column - itemWeight;
                 line--;
                 upperLine--;
             }
-            upper = resultMatrix[upperLine][column];
-
         }
-        return options;
+
+        if (line == 0 && column > 0 && resultMatrix[line][column] > 0) {
+            chosenItems.add(String.valueOf(items.get(line).getIndex()));
+        }
+
+
+        return chosenItems;
     }
 
     /**
@@ -142,25 +145,6 @@ public class PackageCalculator {
     }
 
     /**
-     * Helper method to print the matrix
-     *
-     * @param items
-     * @param resultMatrix
-     * @param lines
-     * @param weight
-     */
-    private static void printMatrix(List<BackpackItem> items, Double[][] resultMatrix, Integer lines, Integer
-            weight) {
-        for (int i = 0; i < lines; i++) {
-            System.out.print("|" + StringUtils.rightPad(String.valueOf(items.get(i).getWeight()) + "|", 8, ' '));
-            for (int j = 0; j < weight; j++) {
-                System.out.print(StringUtils.rightPad(String.valueOf(resultMatrix[i][j]), 8, ' '));
-            }
-            System.out.println("");
-        }
-    }
-
-    /**
      * Sets the best option to choose from for the current weight.
      * It is set by summing the current item cost with the total cost calculated previously for the remaining weight.
      * If it is bigger than the total cost calculated previously for the current weight, then it will be set as the
@@ -171,7 +155,8 @@ public class PackageCalculator {
      * @param prevBestCost            is the cost calculated in the upper row.
      * @return
      */
-    private static Integer calculateMax(Integer currentItemCost, Integer bestRemainingWeightCost, Integer prevBestCost) {
+    private static Integer calculateMax(Integer currentItemCost, Integer bestRemainingWeightCost, Integer
+            prevBestCost) {
         Integer sum = currentItemCost + bestRemainingWeightCost;
         return sum > prevBestCost ? sum : prevBestCost;
     }
@@ -186,7 +171,9 @@ public class PackageCalculator {
     private static Integer[][] getInitializedMatrix(Integer columns, Integer numberItems) {
         Integer[][] matrix = new Integer[numberItems][columns];
         for (int i = 0; i < numberItems; i++) {
-            matrix[i][0] = 0;
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] = 0;
+            }
         }
         return matrix;
     }
