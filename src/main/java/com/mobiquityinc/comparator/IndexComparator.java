@@ -1,4 +1,4 @@
-package com.mobiquityinc.packer;
+package com.mobiquityinc.comparator;
 
 import java.util.Comparator;
 

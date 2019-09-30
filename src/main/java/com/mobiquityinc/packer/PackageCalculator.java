@@ -1,5 +1,6 @@
 package com.mobiquityinc.packer;
 
+import com.mobiquityinc.comparator.IndexComparator;
 import com.mobiquityinc.entities.BackpackItem;
 
 import java.util.ArrayList;

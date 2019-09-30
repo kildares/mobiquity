@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import static com.mobiquityinc.packer.LineConverter.convertLineToEntityPair;
+import static com.mobiquityinc.comparator.LineConverter.convertLineToEntityPair;
 
 public class LineConverterTest {
 

@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.mobiquityinc.comparator.LineConverter.convertLineToEntityPair;
 import static com.mobiquityinc.packer.APIFileReader.*;
-import static com.mobiquityinc.packer.LineConverter.convertLineToEntityPair;
 import static com.mobiquityinc.packer.PackageCalculator.calculate;
 
 public class Packer {

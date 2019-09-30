@@ -1,4 +1,4 @@
-package com.mobiquityinc.packer;
+package com.mobiquityinc.comparator;
 
 import com.mobiquityinc.entities.BackpackItem;
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +49,12 @@ public class LineConverter {
         return weightItems;
     }
 
-
+    /**
+     * Converts a String cotaining the data elements read from a file line to the List of objects
+     *
+     * @param elements
+     * @return
+     */
     private static List<BackpackItem> convertBackPackItem(String elements) {
 
         List<BackpackItem> backpackItems = new ArrayList<>();
@@ -77,6 +82,12 @@ public class LineConverter {
 
     }
 
+    /**
+     * Converts a String containing one item to a BackpackItem
+     *
+     * @param rawItem
+     * @return
+     */
     private static Optional<BackpackItem> convertRawDataToObject(String rawItem) {
 
         String[] raw = rawItem.split(",");
